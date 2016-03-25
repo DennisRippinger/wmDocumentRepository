@@ -6,7 +6,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="de.drippinger" level="INFO"/>
+	<logger name="de.drippinger" level="ALL"/>
 
 	<root level="WARN">
 		<appender-ref ref="STDOUT"/>

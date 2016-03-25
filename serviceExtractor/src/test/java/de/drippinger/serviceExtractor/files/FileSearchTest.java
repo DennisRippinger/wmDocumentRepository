@@ -16,36 +16,41 @@
 package de.drippinger.serviceExtractor.files;
 
 import de.drippinger.serviceExtractor.pojo.RunParameter;
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
- * FileSearch
+ * FileSearch Tester.
  *
  * @author Dennis Rippinger
  */
-@Slf4j
-public class FileSearch {
+public class FileSearchTest {
 
-	/**
-	 * Find all ndf files.
-	 *
-	 * @param parameter the run parameter
-	 * @return a collection of ndf files
-	 */
-	public static Collection<File> findNdfFiles(@NonNull RunParameter parameter) {
-		File rootFolder = new File(parameter.pathToFlows());
+	@Rule
+	public TemporaryFolder testFolder = new TemporaryFolder();
 
-		Collection<File> files = FileUtils.listFiles(rootFolder, FileFilterUtils.suffixFileFilter("ndf"), TrueFileFilter.INSTANCE);
 
-		log.debug("Found {} NDF files", files.size());
-
-		return files;
+	@Before
+	public void prepareFolder() throws IOException {
+		testFolder.create();
+		testFolder.newFile("test.ndf");
 	}
+
+	@Test
+	public void testFindNdfFiles() throws Exception {
+		RunParameter parameter = new RunParameter();
+		parameter.pathToFlows(testFolder.getRoot().getAbsolutePath());
+		Collection<File> ndfFiles = FileSearch.findNdfFiles(parameter);
+
+		assertThat(ndfFiles).isNotEmpty();
+	}
+
 }
