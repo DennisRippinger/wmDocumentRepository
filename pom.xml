@@ -90,6 +90,19 @@
 			<version>2.4</version>
 		</dependency>
 
+		<!--EC Collections -->
+		<dependency>
+			<groupId>org.eclipse.collections</groupId>
+			<artifactId>eclipse-collections-api</artifactId>
+			<version>7.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.collections</groupId>
+			<artifactId>eclipse-collections</artifactId>
+			<version>7.0.2</version>
+		</dependency>
+
 		<!--Testing -->
 		<dependency>
 			<groupId>junit</groupId>
